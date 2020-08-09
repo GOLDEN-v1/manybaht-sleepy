@@ -1,10 +1,12 @@
 const Discord = require("discord.js");
+const NekosLifeAPI = require('nekos.life');
 const Enmap = require("enmap");
 const fs = require("fs");
 
 const client = new Discord.Client();
 const config = require("./config.json");
 client.config = config;
+client.nekoslife = new NekosLifeAPI();
 
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
