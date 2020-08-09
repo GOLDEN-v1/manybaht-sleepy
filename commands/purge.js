@@ -14,9 +14,8 @@ exports.run = async (client, message, args) => {
             return message.reply('ต้องระบุเลขระหว่าง 1 ถึง 99');
         }
 
-        message.channel.bulkDelete(amount, true).catch(err => {
-            console.log(err);
-            message.channel.send('เกิดปัญหาขณะพยายามล้างข้อความ');
-        });
+        message.channel.bulkDelete(amount, true)
+		    .then(async () => message.channel.send(`ทำการลบทั้งหมด ${amount} ข้อความ`))
+			.catch(error => message.channel.send("ส่งข้อความไม่สำเร็จ"));
 		
 }
