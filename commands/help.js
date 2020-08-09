@@ -13,6 +13,7 @@ exports.run = async (client, message, args) => {
     .addField(`${client.config.prefix}` + "ban", "แบนผู้ใช้งาน", inline)
     .addField(`${client.config.prefix}` + "kick", "เตะผู้ใช้งาน", inline)
     .addField(`${client.config.prefix}` + "purge", "ล้างข้อความ", inline)
+    .addField(`${client.config.prefix}` + "say", "ส่งข้อความ", inline)
     .addField(`${client.config.prefix}` + "unknow", "กำลังคิด", inline)
     message.channel.send(bothelp);
   cooldown.add(message.author.id);
