@@ -11,7 +11,8 @@ exports.run = async (client, message, args) => {
             return message.channel.send('กรุณาระบุชื่อเล่นที่ต้องการเปลี่ยน');
     }
 	
-	membermention.setNickname(`${args[1]}`);
-	message.channel.send("เปลี่ยนชื่อเล่นเรียบร้อย");
+	membermention.setNickname(`${args[1]}`)
+		.then(async () => message.channel.send("เปลี่ยนชื่อสำเร็จ"))
+		.catch(error => message.channel.send("เปลี่ยนชื่อไม่สำเร็จ"));
 	
 }
