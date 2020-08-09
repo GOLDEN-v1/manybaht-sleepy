@@ -1,5 +1,4 @@
 const Discord = require("discord.js");
-const cooldown = new Set();
 
 exports.run = async (client, message, args) => {
 	

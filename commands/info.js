@@ -2,14 +2,22 @@ const Discord = require("discord.js");
 const cooldown = new Set();
 
 exports.run = async (client, message, args) => {
+	
   if (cooldown.has(message.author.id)) {
             message.channel.send("<@" + message.author.id + ">" + " กรุณารอ 1 นาทีก่อนพิมพ์คำสั่งใหม่อีกรอบ");
   } else {
     let inline = true
+    let totalSeconds = (client.uptime / 1000);
+    let days = Math.floor(totalSeconds / 86400);
+    totalSeconds %= 86400;
+    let hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = Math.floor(totalSeconds % 60);
+	let uptime = `${days} วัน ${hours} ชั่วโมง ${minutes} นาที ${seconds} วินาที`;
     let boticon = client.user.avatarURL();
     let usersize = client.users.cache.size
     let chsize = client.channels.cache.size
-    let botuptime = client.uptime 
     let serversize = client.guilds.cache.size
     let botinfo = new Discord.MessageEmbed()
     .setColor("#ffb73b")
@@ -20,9 +28,9 @@ exports.run = async (client, message, args) => {
     .addField("จำนวนห้อง", `${chsize}`, inline)
     .addField("จำนวนผู้ใช้", `${usersize}`, inline)
     .addField("บอทเอพีไอ", "Discord.js", inline)
+	.addField("ออนไลน์มาแล้ว", `${uptime}`)
     .addField("สร้างเมื่อ", client.user.createdAt)
     .setFooter(`${client.user.username} เขียนด้วยความเครียด : Nadeon`)
-    .setTimestamp()
     message.channel.send(botinfo);
   cooldown.add(message.author.id);
         setTimeout(() => {
