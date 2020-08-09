@@ -29,8 +29,7 @@ exports.run = async (client, message, args) => {
     .addField("จำนวนผู้ใช้", `${usersize}`, inline)
     .addField("บอทเอพีไอ", "Discord.js", inline)
 	.addField("ออนไลน์มาแล้ว", `${uptime}`)
-    .addField("สร้างเมื่อ", client.user.createdAt)
-    .setFooter(`${client.user.username} เขียนด้วยความเครียด : Nadeon`)
+    .setFooter(`บอทนี้เขียนด้วยความเครียด`)
     message.channel.send(botinfo);
   cooldown.add(message.author.id);
         setTimeout(() => {
