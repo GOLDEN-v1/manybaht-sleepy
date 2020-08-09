@@ -1,6 +1,4 @@
-const Discord = require("discord.js");
-
-exports.run = async (client, message, args) => {
+cexports.run = async (client, message, args) => {
 	
       if (!message.member.hasPermission(['MANAGE_MESSAGES'])) {
      	  return message.channel.send("คุณไม่มีอำนาจในการใช้คำสั่งนี้");
