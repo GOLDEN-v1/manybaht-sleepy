@@ -12,6 +12,7 @@ exports.run = async (client, message, args) => {
     .addField(`${client.config.prefix}` + "purge", "ล้างข้อความ", inline)
     .addField(`${client.config.prefix}` + "say", "ส่งข้อความ", inline)
     .addField(`${client.config.prefix}` + "reload", "รีโหลดคำสั่ง", inline)
+    .addField(`${client.config.prefix}` + "nick", "เปลี่ยนชื่อเล่น", inline)
     .addField(`${client.config.prefix}` + "unknow", "กำลังคิด", inline)	
     message.channel.send(bothelp);
 	
