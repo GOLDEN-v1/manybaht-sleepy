@@ -27,11 +27,13 @@ exports.run = async (client, message, args) => {
 		
 		} else {
 			
+		let moneypocket = parseInt(args[0])
+			
 		let noamount = new Discord.MessageEmbed()
 		.setColor(0xffb73b)
 		.setDescription("กรุณาระบุจำนวนเงิน");
 		
-		if (!args[0]) {
+		if (!moneypocket) {
 			return message.channel.send(noamount);
 		}
 		
@@ -43,28 +45,20 @@ exports.run = async (client, message, args) => {
 		    return message.channel.send(negativemoney)
 		}
 		
-		let decimalmoney = new Discord.MessageEmbed()
-		.setColor(0xffb73b)
-		.setDescription("กรุณาระบุจำนวนเงินเต็มบวก");
-		
-		if (message.content.includes('.')) { 
-		    return message.channel.send(decimalmoney)
-		}
-		
 		let donthavethatmuch = new Discord.MessageEmbed()
 		.setColor(0xffb73b)
 		.setDescription("คุณไม่มีเงินจำนวนที่ว่า");
 		
-		if (member < args[0]) {
+		if (member < moneypocket) {
 			return message.channel.send(donthavethatmuch)
 		}
 	    
 		let moneydeposited = new Discord.MessageEmbed()
 		.setColor(0xffb73b)
-		.setDescription(`คุณได้ฝากเงินจำนวน ${args[0]} เข้าธนาคารแล้ว`);
+		.setDescription(`คุณได้ฝากเงินจำนวน ${moneypocket} เข้าธนาคารแล้ว`);
 		
-		db.add(`bank_${user.id}`, args[0])
-		db.subtract(`money_${user.id}`, args[0])
+		db.add(`bank_${user.id}`, moneypocket)
+		db.subtract(`money_${user.id}`, moneypocket)
 		message.channel.send(moneydeposited)
 		}
 		
