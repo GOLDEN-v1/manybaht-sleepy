@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
 		return message.channel.send(bpmax)
 		}
 	
-    let author = await db.fetch(`fish_${user.id}`)
+    let author = await db.fetch(`mine_${user.id}`)
 	
 	let timeout = 60000;
 	
@@ -22,22 +22,22 @@ exports.run = async (client, message, args) => {
 		
         let timeEmbed = new Discord.MessageEmbed()
         .setColor("#ffb73b")
-        .setDescription(`คุณเพิ่งตกปลาไป\n\nลองใหม่อีกครั้งใน ${time.minutes} นาที ${time.seconds} วิ`);
+        .setDescription(`คุณเพิ่งขุดแร่ไป\n\nลองใหม่อีกครั้งใน ${time.minutes} นาที ${time.seconds} วิ`);
         message.channel.send(timeEmbed)
       } else {
 
-        let replies = ['<:1_:742413101265059911>','<:2_:742414967919345726>','<:3_:742414968015683726>','<:4_:742414968867258411>','<:5_:742414967957094412>','<:6_:742414968590172320>']
+        let replies = ['<:ore1:742456866197602435>','<:ore2:742456867145515028>','<:ore3:742456867221143613>','<:ore4:742456867472670821>']
 
         let result = Math.floor((Math.random() * replies.length));
         let amount = Math.floor(Math.random() * 3) + 1;
         let embed1 = new Discord.MessageEmbed()
         .setColor("#ffb73b")
-        .setDescription(`คุณตกปลาได้ ${replies[result]} จำนวน ${amount} ตัว`);
+        .setDescription(`คุณขุดแร่ได้ ${replies[result]} จำนวน ${amount} อัน`);
         message.channel.send(embed1)
         
 		db.add(`inv_space_${user.id}`, amount)
         db.add(`inv_${replies[result]}_${user.id}`, amount)
-        db.set(`fish_${user.id}`, Date.now())
+        db.set(`mine_${user.id}`, Date.now())
     };
 		
 }

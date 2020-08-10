@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
 	let user = message.author;
     let author = await db.fetch(`work_${user.id}`)
 	
-	let timeout = 600000;
+	let timeout = 60000;
 	
 	if (author !== null && timeout - (Date.now() - author) > 0) {
         let time = ms(timeout - (Date.now() - author));
