@@ -4,7 +4,10 @@ const db = require("quick.db");
 exports.run = async (client, message, args) => {
 	
 if (!args[1]) {
-	return message.channel.send("กรุณาใส่ไอดีดิสที่ต้องการยืนยัน\n\nตัวอย่าง .verify โค้ด ไอดีห้องดิส");
+	let verifyexample = new Discord.MessageEmbed()
+	.setColor(0xffb73b)
+	.setDescription("กรุณาใส่ไอดีดิสที่ต้องการยืนยัน\n\nตัวอย่าง .verify โค้ด ไอดีห้องดิส");
+	return message.channel.send(verifyexample)
 }
 
 let that_discord = (args[1])

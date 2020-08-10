@@ -1,13 +1,31 @@
 const Discord = require("discord.js");
 const db = require("quick.db");
+const ms = require("parse-ms");
 
 exports.run = async (client, message, args) => {
-	
+
 if (!args[0]) {
-	return message.channel.send("กรุณาใส่ไอดีดิสที่ต้องการยืนยัน\n\nตัวอย่าง .getverify ไอดีห้องดิส");
+	let getverifyexample = new Discord.MessageEmbed()
+	.setColor(0xffb73b)
+	.setDescription("กรุณาใส่ไอดีดิสที่ต้องการยืนยัน\n\nตัวอย่าง .getverify ไอดีห้องดิส");
+	return message.channel.send(getverifyexample)
 }
 
 let that_discord = (args[0])
+	
+let user = message.author;
+let author = await db.fetch(`getverify_${that_discord}_${user.id}`)
+	
+let timeout = 3600000;
+	
+if (author !== null && timeout - (Date.now() - author) > 0) {
+    let time = ms(timeout - (Date.now() - author));
+		
+    let timeEmbed = new Discord.MessageEmbed()
+    .setColor("#ffb73b")
+    .setDescription(`คุณเพิ่งขอรหัสยืนยันตัวตนไป\n\nลองใหม่อีกครั้งใน ${time.minutes} นาที ${time.seconds} วิ`);
+    message.channel.send(timeEmbed)
+} else {
 	
 let verify_status_db = await db.fetch(`verify_status_${that_discord}`)
 let verify_role_db = await db.fetch(`verify_role_${that_discord}`)
@@ -34,8 +52,6 @@ if (verify_role_db == null) {
 }
 
 if (verify_status_db == 'เปิด') {
-
-let user = message.author;
 	
 const shortcode = (n) => {
     const possible = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghjklmnopqrstuvwxyz0123456789'
@@ -54,6 +70,9 @@ let verifyembed = new Discord.MessageEmbed()
 .setColor(0xffb73b)
 .setDescription(`กรุณาพิมพ์คำสั่ง\n\n.verify ${verify_code} ${that_discord}`);
 message.channel.send(verifyembed)
+
+db.set(`getverify_${that_discord}_${user.id}`, Date.now())
+}
 }
 
 }
