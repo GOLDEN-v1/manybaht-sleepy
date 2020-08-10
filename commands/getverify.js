@@ -3,8 +3,14 @@ const db = require("quick.db");
 
 exports.run = async (client, message, args) => {
 	
-let verify_status_db = await db.fetch(`verify_status_${message.guild.id}`)
-let verify_role_db = await db.fetch(`verify_role_${message.guild.id}`)
+if (!args[0]) {
+	return message.channel.send("กรุณาใส่ไอดีดิสที่ต้องการยืนยัน\n\nตัวอย่าง .getverify ไอดีห้องดิส");
+}
+
+let that_discord = (args[0])
+	
+let verify_status_db = await db.fetch(`verify_status_${that_discord}`)
+let verify_role_db = await db.fetch(`verify_role_${that_discord}`)
 
 if (verify_status_db == null) {
 	let verifyEmbednull = new Discord.MessageEmbed()
@@ -40,13 +46,13 @@ const shortcode = (n) => {
 
 const verifytoken = shortcode(8)
 
-await db.set(`verify_codes_${message.guild.id}_${user.id}`, verifytoken)
+await db.set(`verify_codes_${that_discord}_${user.id}`, verifytoken)
 
-let verify_code = await db.fetch(`verify_codes_${message.guild.id}_${user.id}`)
+let verify_code = await db.fetch(`verify_codes_${that_discord}_${user.id}`)
 
 let verifyembed = new Discord.MessageEmbed()
 .setColor(0xffb73b)
-.setDescription(`กรุณาพิมพ์คำสั่ง\n\n.verify ${verify_code}`);
+.setDescription(`กรุณาพิมพ์คำสั่ง\n\n.verify ${verify_code} ${that_discord}`);
 message.channel.send(verifyembed)
 }
 
